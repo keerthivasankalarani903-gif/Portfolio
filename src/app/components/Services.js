@@ -81,9 +81,9 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
               viewport={{ once: true }}
-              className="bg-[var(--gray-2)]/60 backdrop-blur-xl border border-[var(--gray-6)] rounded-2xl p-8 shadow-lg hover:shadow-2xl transition duration-300"
+              className="group bg-[var(--gray-2)]/60 backdrop-blur-xl border border-[var(--gray-6)] rounded-2xl p-8 shadow-lg hover:shadow-2xl hover:border-[var(--accent-7)] transition-all duration-300"
             >
-              <div className="w-12 h-12 rounded-lg bg-[var(--accent-3)] flex items-center justify-center text-[var(--accent-9)] mb-6">
+              <div className="w-12 h-12 rounded-xl bg-[var(--accent-3)] flex items-center justify-center text-[var(--accent-9)] mb-6 group-hover:bg-[var(--accent-9)] group-hover:text-[var(--accent-contrast)] transition-all duration-300">
                 {service.icon}
               </div>
 
@@ -101,7 +101,7 @@ export default function Services() {
                     key={i}
                     className="text-sm text-[var(--gray-10)] flex items-center gap-2"
                   >
-                    <span className="w-2 h-2 rounded-full bg-[var(--accent-9)]"></span>
+                    <span className="w-2 h-2 rounded-full bg-[var(--accent-9)] shrink-0"></span>
                     {point}
                   </li>
                 ))}
