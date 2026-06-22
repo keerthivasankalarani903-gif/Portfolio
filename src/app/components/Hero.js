@@ -1,8 +1,9 @@
 "use client";
 
+import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Mail, Linkedin as LinkedinIcon, Code2, Database, Cloud } from "lucide-react";
+import { Mail, Linkedin as LinkedinIcon, Code2, Database, Cloud, Workflow, Bot, Server, Layers } from "lucide-react";
 
 export default function Hero() {
   const roles = [
@@ -23,6 +24,14 @@ export default function Hero() {
         "Active Users: 1.4k+",
         "Database Optimized",
       ],
+      icon: Code2,
+      cardTitle: "Development",
+      cardSubtitle: "Full-Stack Solutions",
+      floatingIcons: [
+        { Icon: Database, position: "top-right" },
+        { Icon: Server, position: "bottom-left" },
+      ],
+      accentColor: "var(--accent-9)",
     },
     {
       title: "Integration Specialist",
@@ -42,6 +51,14 @@ export default function Hero() {
         "HubSpot: Automated",
         "Data Accuracy: 99.2%",
       ],
+      icon: Workflow,
+      cardTitle: "Integration",
+      cardSubtitle: "API Solutions",
+      floatingIcons: [
+        { Icon: Layers, position: "top-right" },
+        { Icon: Cloud, position: "bottom-left" },
+      ],
+      accentColor: "#10b981",
     },
     {
       title: "AI Solutions Architect",
@@ -62,6 +79,14 @@ export default function Hero() {
         "Process Intelligence",
         "Efficiency Gain: 60%",
       ],
+      icon: Bot,
+      cardTitle: "AI Solutions",
+      cardSubtitle: "Intelligent Automation",
+      floatingIcons: [
+        { Icon: Bot, position: "top-right" },
+        { Icon: Database, position: "bottom-left" },
+      ],
+      accentColor: "#ec4899",
     },
   ];
 
@@ -174,154 +199,272 @@ export default function Hero() {
           <AnimatePresence mode="wait">
             <motion.div
               key={currentRole}
-              initial={{ opacity: 0, scale: 0.8, rotateY: -30 }}
-              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-              exit={{ opacity: 0, scale: 0.8, rotateY: 30 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="relative w-full max-w-md"
+              className="relative w-full max-w-lg aspect-square"
             >
-              {/* Animated Card Stack */}
-              <div className="relative space-y-4">
-                {/* Main Card */}
+              {/* World Map Container */}
+              <div className="relative w-full h-full flex items-center justify-center">
+                
+                {/* Rotating Globe Background */}
                 <motion.div
-                  animate={{ 
-                    y: [0, -10, 0],
-                  }}
-                  transition={{ 
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut" 
-                  }}
-                  className="relative bg-gradient-to-br from-[var(--gray-3)] to-[var(--gray-2)] rounded-2xl p-8 shadow-2xl border border-[var(--gray-6)] overflow-hidden"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+                  className="absolute inset-0 flex items-center justify-center"
                 >
-                  {/* Glowing border effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-9)] to-[var(--accent-7)] opacity-20 blur-xl"></div>
-                  
-                  {/* Content */}
-                  <div className="relative z-10 space-y-6">
-                    <div className="flex items-center gap-4">
-                      <div className="p-3 bg-[var(--accent-3)] rounded-lg">
-                        <Code2 className="text-[var(--accent-9)]" size={28} />
-                      </div>
+                  {/* Globe Circle */}
+                  <div 
+                    className="w-80 h-80 rounded-full border-2 opacity-20"
+                    style={{ 
+                      borderColor: roles[currentRole].accentColor,
+                      background: `radial-gradient(circle at 30% 30%, ${roles[currentRole].accentColor}15, transparent 70%)`
+                    }}
+                  >
+                    {/* Latitude lines */}
+                    {[...Array(5)].map((_, i) => (
+                      <div
+                        key={`lat-${i}`}
+                        className="absolute left-0 right-0 border-t opacity-10"
+                        style={{
+                          borderColor: roles[currentRole].accentColor,
+                          top: `${20 + i * 15}%`,
+                        }}
+                      />
+                    ))}
+                    
+                    {/* Longitude lines */}
+                    {[...Array(6)].map((_, i) => (
+                      <div
+                        key={`lon-${i}`}
+                        className="absolute top-0 bottom-0 border-l opacity-10"
+                        style={{
+                          borderColor: roles[currentRole].accentColor,
+                          left: `${10 + i * 15}%`,
+                        }}
+                      />
+                    ))}
+                  </div>
+                </motion.div>
+
+                {/* Connection Points on Map */}
+                {[
+                  { x: 45, y: 35, label: "North America" },
+                  { x: 55, y: 45, label: "Europe" },
+                  { x: 70, y: 50, label: "Asia" },
+                  { x: 48, y: 65, label: "South America" },
+                  { x: 65, y: 60, label: "Africa" },
+                  { x: 80, y: 70, label: "Australia" },
+                ].map((point, index) => (
+                  <motion.div
+                    key={point.label}
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: index * 0.15, type: "spring" }}
+                    className="absolute"
+                    style={{
+                      left: `${point.x}%`,
+                      top: `${point.y}%`,
+                    }}
+                  >
+                    {/* Connection Point */}
+                    <motion.div
+                      animate={{
+                        scale: [1, 1.5, 1],
+                        opacity: [0.5, 1, 0.5],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        delay: index * 0.3,
+                      }}
+                      className="relative"
+                    >
+                      {/* Outer ring */}
+                      <div
+                        className="absolute w-8 h-8 rounded-full -translate-x-1/2 -translate-y-1/2"
+                        style={{
+                          border: `2px solid ${roles[currentRole].accentColor}`,
+                          opacity: 0.3,
+                        }}
+                      />
+                      {/* Inner dot */}
+                      <div
+                        className="w-3 h-3 rounded-full -translate-x-1/2 -translate-y-1/2"
+                        style={{ backgroundColor: roles[currentRole].accentColor }}
+                      />
+                    </motion.div>
+                  </motion.div>
+                ))}
+
+                {/* Connecting Lines Between Points */}
+                <svg className="absolute inset-0 w-full h-full pointer-events-none">
+                  {[
+                    { from: { x: 45, y: 35 }, to: { x: 55, y: 45 } },
+                    { from: { x: 55, y: 45 }, to: { x: 70, y: 50 } },
+                    { from: { x: 45, y: 35 }, to: { x: 48, y: 65 } },
+                    { from: { x: 55, y: 45 }, to: { x: 65, y: 60 } },
+                    { from: { x: 70, y: 50 }, to: { x: 80, y: 70 } },
+                  ].map((line, index) => (
+                    <motion.line
+                      key={index}
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      animate={{ pathLength: 1, opacity: 0.4 }}
+                      transition={{ duration: 1.5, delay: index * 0.2 }}
+                      x1={`${line.from.x}%`}
+                      y1={`${line.from.y}%`}
+                      x2={`${line.to.x}%`}
+                      y2={`${line.to.y}%`}
+                      stroke={roles[currentRole].accentColor}
+                      strokeWidth="2"
+                      strokeDasharray="5,5"
+                    />
+                  ))}
+                </svg>
+
+                {/* Central Info Card */}
+                <motion.div
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ delay: 0.5, type: "spring" }}
+                  className="relative z-10 bg-gradient-to-br from-[var(--gray-2)] to-[var(--gray-3)] rounded-2xl p-6 shadow-2xl border backdrop-blur-sm max-w-xs"
+                  style={{ borderColor: roles[currentRole].accentColor }}
+                >
+                  {/* Glowing effect */}
+                  <div
+                    className="absolute inset-0 rounded-2xl opacity-20 blur-xl"
+                    style={{ backgroundColor: roles[currentRole].accentColor }}
+                  />
+
+                  <div className="relative space-y-4">
+                    {/* Header */}
+                    <div className="flex items-center gap-3">
+                      <motion.div
+                        animate={{ rotate: [0, 360] }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                        className="p-2 rounded-lg"
+                        style={{ backgroundColor: `${roles[currentRole].accentColor}20` }}
+                      >
+                        {React.createElement(roles[currentRole].icon, {
+                          size: 24,
+                          style: { color: roles[currentRole].accentColor },
+                        })}
+                      </motion.div>
                       <div>
-                        <h3 className="text-xl font-bold text-[var(--gray-12)]">Development</h3>
-                        <p className="text-sm text-[var(--gray-10)]">Full-Stack Solutions</p>
+                        <h3 className="text-lg font-bold text-[var(--gray-12)]">
+                          {roles[currentRole].cardTitle}
+                        </h3>
+                        <p className="text-xs text-[var(--gray-10)]">
+                          {roles[currentRole].cardSubtitle}
+                        </p>
                       </div>
                     </div>
 
-                    {/* Metrics Display */}
-                    <div className="space-y-3">
-                      {roles[currentRole].metrics.map((metric, index) => (
+                    {/* Metrics */}
+                    <div className="space-y-2">
+                      {roles[currentRole].metrics.slice(0, 3).map((metric, index) => (
                         <motion.div
                           key={metric}
-                          initial={{ opacity: 0, x: -20 }}
+                          initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.1 }}
-                          className="flex items-center justify-between p-3 bg-[var(--gray-4)] rounded-lg border border-[var(--gray-6)]"
+                          transition={{ delay: 0.7 + index * 0.1 }}
+                          className="flex items-center justify-between text-xs"
                         >
-                          <span className="text-sm text-[var(--gray-11)]">{metric}</span>
+                          <span className="text-[var(--gray-11)]">{metric}</span>
                           <motion.div
-                            animate={{ scale: [1, 1.2, 1] }}
-                            transition={{ duration: 2, repeat: Infinity, delay: index * 0.2 }}
-                            className="w-2 h-2 bg-green-500 rounded-full"
+                            animate={{ scale: [1, 1.3, 1] }}
+                            transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
+                            className="w-2 h-2 rounded-full"
+                            style={{ backgroundColor: roles[currentRole].accentColor }}
                           />
                         </motion.div>
                       ))}
                     </div>
 
-                    {/* Progress Bars */}
-                    <div className="space-y-3 pt-4">
-                      <div className="space-y-2">
-                        <div className="flex justify-between text-xs text-[var(--gray-10)]">
-                          <span>Performance</span>
-                          <span>98%</span>
-                        </div>
-                        <div className="h-2 bg-[var(--gray-5)] rounded-full overflow-hidden">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: "98%" }}
-                            transition={{ duration: 1.5, ease: "easeOut" }}
-                            className="h-full bg-gradient-to-r from-[var(--accent-9)] to-[var(--accent-7)]"
-                          />
-                        </div>
+                    {/* Stats */}
+                    <div className="pt-3 space-y-2 border-t border-[var(--gray-6)]">
+                      <div className="flex justify-between text-xs">
+                        <span className="text-[var(--gray-10)]">Global Reach</span>
+                        <span className="font-semibold text-[var(--gray-12)]">6+ Regions</span>
                       </div>
-
-                      <div className="space-y-2">
-                        <div className="flex justify-between text-xs text-[var(--gray-10)]">
-                          <span>Reliability</span>
-                          <span>99.9%</span>
-                        </div>
-                        <div className="h-2 bg-[var(--gray-5)] rounded-full overflow-hidden">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: "99.9%" }}
-                            transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
-                            className="h-full bg-gradient-to-r from-green-500 to-emerald-500"
-                          />
-                        </div>
+                      <div className="flex justify-between text-xs">
+                        <span className="text-[var(--gray-10)]">Active Projects</span>
+                        <span className="font-semibold text-[var(--gray-12)]">24/7</span>
                       </div>
                     </div>
                   </div>
                 </motion.div>
 
-                {/* Floating Tech Icons */}
-                <div className="absolute -top-4 -right-4">
-                  <motion.div
-                    animate={{ 
-                      y: [0, -15, 0],
-                      rotate: [0, 5, 0]
-                    }}
-                    transition={{ 
-                      duration: 4,
-                      repeat: Infinity,
-                      ease: "easeInOut" 
-                    }}
-                    className="p-4 bg-[var(--gray-2)] rounded-xl shadow-xl border border-[var(--gray-6)]"
-                  >
-                    <Database className="text-[var(--accent-9)]" size={24} />
-                  </motion.div>
-                </div>
-
-                <div className="absolute -bottom-4 -left-4">
-                  <motion.div
-                    animate={{ 
-                      y: [0, 15, 0],
-                      rotate: [0, -5, 0]
-                    }}
-                    transition={{ 
-                      duration: 3.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: 0.5
-                    }}
-                    className="p-4 bg-[var(--gray-2)] rounded-xl shadow-xl border border-[var(--gray-6)]"
-                  >
-                    <Cloud className="text-[var(--accent-9)]" size={24} />
-                  </motion.div>
-                </div>
-
                 {/* Orbiting Particles */}
-                {[...Array(3)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute w-2 h-2 bg-[var(--accent-9)] rounded-full"
-                    animate={{
-                      x: [0, 100, 0, -100, 0],
-                      y: [0, -100, 0, 100, 0],
-                    }}
-                    transition={{
-                      duration: 8,
-                      repeat: Infinity,
-                      delay: i * 2.6,
-                      ease: "linear"
-                    }}
-                    style={{
-                      left: "50%",
-                      top: "50%",
-                      filter: "blur(1px)"
-                    }}
-                  />
-                ))}
+                {[...Array(8)].map((_, i) => {
+                  const angle = (i / 8) * Math.PI * 2;
+                  const radius = 180;
+                  return (
+                    <motion.div
+                      key={i}
+                      className="absolute w-1.5 h-1.5 rounded-full"
+                      style={{ backgroundColor: roles[currentRole].accentColor }}
+                      animate={{
+                        x: [
+                          Math.cos(angle) * radius,
+                          Math.cos(angle + Math.PI) * radius,
+                          Math.cos(angle) * radius,
+                        ],
+                        y: [
+                          Math.sin(angle) * radius,
+                          Math.sin(angle + Math.PI) * radius,
+                          Math.sin(angle) * radius,
+                        ],
+                      }}
+                      transition={{
+                        duration: 20,
+                        repeat: Infinity,
+                        delay: i * 0.5,
+                        ease: "linear",
+                      }}
+                      style={{
+                        left: "50%",
+                        top: "50%",
+                        filter: "blur(1px)",
+                      }}
+                    />
+                  );
+                })}
+
+                {/* Floating Role Icons */}
+                {roles[currentRole].floatingIcons.map((iconData, index) => {
+                  const { Icon, position } = iconData;
+                  const positionClasses =
+                    position === "top-right"
+                      ? "absolute -top-8 -right-8"
+                      : "absolute -bottom-8 -left-8";
+
+                  return (
+                    <div key={index} className={positionClasses}>
+                      <motion.div
+                        initial={{ scale: 0, rotate: -180 }}
+                        animate={{
+                          scale: 1,
+                          rotate: 0,
+                          y: position === "top-right" ? [0, -10, 0] : [0, 10, 0],
+                        }}
+                        transition={{
+                          scale: { duration: 0.5 },
+                          rotate: { duration: 0.5 },
+                          y: {
+                            duration: position === "top-right" ? 3 : 2.5,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          },
+                        }}
+                        className="p-3 bg-[var(--gray-2)] rounded-xl shadow-xl border border-[var(--gray-6)]"
+                      >
+                        <Icon size={20} style={{ color: roles[currentRole].accentColor }} />
+                      </motion.div>
+                    </div>
+                  );
+                })}
               </div>
             </motion.div>
           </AnimatePresence>
