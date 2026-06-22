@@ -3,6 +3,7 @@
 import "@radix-ui/themes/styles.css";
 import { Theme } from "@radix-ui/themes";
 import { ThemeProvider, useTheme } from "./components/ThemeContext";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 function AppWrapper({ children }) {
@@ -39,6 +40,7 @@ export default function RootLayout({ children }) {
         <ThemeProvider>
           <AppWrapper>{children}</AppWrapper>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
